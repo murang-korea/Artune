@@ -1,0 +1,12 @@
+<!-- server/public/logo.svg -->
+<svg width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1">
+      <stop offset="0" stop-color="#6A5ACD"/>
+      <stop offset="1" stop-color="#FF8C00"/>
+    </linearGradient>
+  </defs>
+  <text x="0" y="40" font-family="Poppins, Pretendard, sans-serif" font-size="36" font-weight="700" fill="url(#g1)">Art</text>
+  <text x="82" y="40" font-family="Poppins, Pretendard, sans-serif" font-size="36" font-weight="600" fill="#222">une</text>
+  <circle cx="186" cy="16" r="4.5" fill="#FF8C00"/>
+</svg>

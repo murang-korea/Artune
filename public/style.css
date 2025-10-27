@@ -1,0 +1,54 @@
+/* server/public/styles.css */
+:root{
+  --primary: #6A5ACD;
+  --accent: #FF8C00;
+  --bg: #F9F8FD;
+  --card: #FFFFFF;
+  --muted: #7b7b7b;
+  --text: #222;
+  --radius: 12px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: "Poppins", Pretendard, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.container{max-width:980px;margin:36px auto;padding:0 16px}
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:14px 18px;background:var(--card);
+  box-shadow:0 1px 6px rgba(60,60,60,0.06);border-bottom-left-radius:10px;border-bottom-right-radius:10px;
+}
+.header .brand{display:flex;align-items:center;gap:12px}
+.header img{height:42px}
+.header .actions{display:flex;gap:8px}
+.btn{
+  background:var(--primary);color:white;border:0;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:600;
+}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid rgba(0,0,0,0.06)}
+.btn.alt{background:var(--accent)}
+h1,h2{margin:0}
+.card{
+  background:var(--card);border-radius:var(--radius);box-shadow:0 6px 18px rgba(30,30,30,0.04);
+  overflow:hidden;margin:18px 0;transition:transform .15s;
+}
+.card:hover{transform:translateY(-4px)}
+.card .thumb{width:100%;display:block;object-fit:cover}
+.card .meta{padding:14px 16px}
+.row{display:flex;gap:12px;align-items:center}
+.list-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.small{font-size:13px;color:var(--muted)}
+.center{display:flex;align-items:center;justify-content:center}
+.form{background:var(--card);padding:16px;border-radius:12px}
+.input,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);font-size:14px}
+textarea{min-height:120px;resize:vertical}
+.footer{padding:20px;text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
+@media (max-width:640px){
+  .header{padding:12px}
+  .container{margin:20px auto}
+}

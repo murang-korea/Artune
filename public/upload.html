@@ -1,60 +1,35 @@
-<!-- server/public/upload.html -->
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Artune - 업로드</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<title>Artune - 웹툰 업로드</title>
 </head>
 <body>
-  <header class="header">
-    <div class="brand"><img src="logo.svg" alt="Artune"><div style="font-weight:700">Artune</div></div>
-  </header>
+  <h2>웹툰 업로드</h2>
+  <input id="title" placeholder="제목"><br>
+  <textarea id="description" placeholder="설명"></textarea><br>
+  <input id="images" type="file" multiple><br>
+  <button onclick="uploadPost()">업로드</button>
 
-  <main class="container">
-    <div class="form card" style="padding:18px;max-width:820px;margin:16px auto">
-      <h2>웹툰 업로드</h2>
-      <form id="f">
-        <div style="margin-top:12px;">
-          <input id="title" class="input" name="title" placeholder="제목을 입력하세요" required />
-        </div>
-        <div style="margin-top:12px">
-          <label class="small">이미지(여러 장 업로드 가능, 순서대로 표시)</label>
-          <input id="images" name="images" type="file" accept="image/*" multiple style="margin-top:8px" />
-        </div>
-        <div style="margin-top:14px;display:flex;gap:8px">
-          <button class="btn" type="submit">업로드 & 등록</button>
-          <button type="button" class="btn ghost" onclick="location.href='/'">취소</button>
-        </div>
-      </form>
-      <div id="hint" class="small" style="margin-top:10px">로그인 후 업로드 가능</div>
-    </div>
-  </main>
+  <script>
+  async function uploadPost() {
+    const title = document.getElementById('title').value.trim();
+    const description = document.getElementById('description').value.trim();
+    const files = document.getElementById('images').files;
+    if(!title || files.length===0) return alert('제목과 이미지를 입력하세요.');
 
-<script>
-async function ensureLogin(){
-  const r = await fetch('/api/current-user');
-  const j = await r.json();
-  if(!j.user){ alert('로그인이 필요합니다'); location.href = '/login.html'; return false; }
-  return true;
-}
+    const form = new FormData();
+    form.append('title', title);
+    form.append('description', description);
+    for(const f of files) form.append('images', f);
 
-document.getElementById('f').addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  if(!await ensureLogin()) return;
-  const form = new FormData();
-  form.append('title', document.getElementById('title').value);
-  const files = document.getElementById('images').files;
-  if(files.length === 0){ alert('이미지를 선택해'); return; }
-  for(const f of files) form.append('images', f);
-  try{
-    const res = await fetch('/api/upload-post', { method:'POST', body: form });
-    const j = await res.json();
-    if(j.ok){ alert('업로드 완료'); location.href = `/view.html?id=${j.postId}`; }
-    else alert(j.error || '업로드 실패');
-  }catch(err){ console.error(err); alert('업로드 중 오류'); }
-});
-</script>
+    const res = await fetch('/api/upload', { method:'POST', body: form });
+    const data = await res.json();
+    if(data.ok){
+      alert('업로드 성공!');
+      location.href = 'index.html';
+    }else alert(data.error);
+  }
+  </script>
 </body>
 </html>
